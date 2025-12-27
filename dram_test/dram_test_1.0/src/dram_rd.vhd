@@ -231,7 +231,6 @@ begin
         done => addr_done
     );
     
-    
     -- FIFO code
     FIFO_wr_en <= dram_rd_valid AND NOT FIFO_FULL and NOT FIFO_wr_rst_busy;
     FIFO_rd_en <= rd_en AND NOT FIFO_empty AND NOT FIFO_rd_rst_busy;

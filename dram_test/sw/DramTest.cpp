@@ -100,12 +100,14 @@ bool DramTest::start(unsigned int size, unsigned int addr) {
 
     throw e;
   }
-
   // Disable user mode.
   write(0, MODE_ADDR);
 
   // read the outputs back from the FPGA
   read(output, MEM_OUT_ADDR, size / 2 + size % 2);
+
+  //cout << "Success" << endl;
+
 
   bool result = true;
   for (unsigned i = 0; i < size / 2 + size % 2; i++) {
