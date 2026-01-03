@@ -9,7 +9,7 @@ set_property CONFIG_VOLTAGE 3.3 [current_design]
 set_property BITSTREAM.Config.SPI_buswidth 4 [current_design]
 
 # On-board Slide Switches
-set_property -dict {PACKAGE_PIN G1 IOSTANDARD LVCMOS25} [get_ports {reset_rtl_0}]
+# set_property -dict {PACKAGE_PIN G1 IOSTANDARD LVCMOS25} [get_ports {reset_rtl_0}]
 #set_property -dict {PACKAGE_PIN F2 IOSTANDARD LVCMOS25} [get_ports {SW[1]}]
 #set_property -dict {PACKAGE_PIN F1 IOSTANDARD LVCMOS25} [get_ports {SW[2]}]
 #set_property -dict {PACKAGE_PIN E2 IOSTANDARD LVCMOS25} [get_ports {SW[3]}]
