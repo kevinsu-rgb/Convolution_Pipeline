@@ -3,7 +3,13 @@
 // Simplified DRAM Test - Microblaze Baremetal
 // main.cpp
 
+#include <stdio.h>
 #include "main.h"
+#include "xil_printf.h"
+#include "xil_io.h"
+#include "xuartlite.h"
+#include <stdlib.h>
+#include <stdbool.h>
 
 // Global base pointer for hardware access
 static volatile unsigned int *hwBase = (volatile unsigned int *)AXI_MMAP_ADDR;
@@ -161,7 +167,7 @@ bool runDramTest(unsigned int size, unsigned int addr) {
 // ============================================================================
 
 int main(void) {
-  xil_printf("\r\n");
+  // xil_printf("\r\n");
   xil_printf("========================================\r\n");
   xil_printf("  DRAM Test - Microblaze Baremetal\r\n");
   xil_printf("========================================\r\n");

@@ -6,8 +6,9 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-#include "xil_io.h"
+#include <stdio.h>
 #include "xil_printf.h"
+#include "xil_io.h"
 #include "xuartlite.h"
 #include <stdlib.h>
 #include <stdbool.h>
