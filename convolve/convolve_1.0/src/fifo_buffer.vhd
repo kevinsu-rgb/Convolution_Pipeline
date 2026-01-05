@@ -21,43 +21,44 @@ entity fifo_buffer is
 end fifo_buffer;
 
 architecture behavioral of fifo_buffer is
-    signal regs : window(0 to width - 1);
+    signal regs : window(0 to width - 1) := (others => (others => '0'));
     signal count : natural range 0 to width := 0;
-
 begin
-    process(clk, rst)
+    -- Combinational output - no extra delay
+    output <= regs;
+    
+    -- Combinational flags
+    empty <= '1' when count < width else '0';
+    full  <= '1' when count = width and rd_en = '0' else '0';
+    
+    process(clk)
     begin
         if (rst = '1') then
+            regs <= (others => (others => '0'));
             count <= 0;
-            for i in 0 to width - 1 loop
-                regs(i) <= (others => '0');
-            end loop;
-
         elsif (rising_edge(clk)) then
-
-            --add new data if not full
-            if (wr_en = '1' and count < width) then
-                regs(width - 1) <= input; --swap to regs(0) <= input for other way (3 2 1)
-                count <= count + 1;
-
-                --slide data
-                for i in 0 to width - 2 loop
-                    regs(i) <= regs(i + 1); --swap to regs(i + 1) <= regs(i) for other way (3 2 1)
+            -- Handle write
+            if (wr_en = '1') then
+                -- Shift data through pipeline
+                for i in width-1 downto 1 loop
+                    regs(i) <= regs(i-1);
                 end loop;
+                regs(0) <= input;
             end if;
-
-            --read
-            if (rd_en = '1' and count > 0) then
-                if (wr_en = '0') then
+            
+            -- Update count
+            if (wr_en = '1' and rd_en = '0') then
+                if (count < width) then
+                    count <= count + 1;
+                end if;
+            elsif (wr_en = '0' and rd_en = '1') then
+                if (count > 0) then
                     count <= count - 1;
                 end if;
             end if;
-
+            -- If both wr_en and rd_en, count stays the same
+            
         end if;
     end process;
-
-    output <= regs;
-    full <= '1' when (count = width) else '0';
-    empty <= '1' when (count < width) else '0';
-
+    
 end behavioral;
