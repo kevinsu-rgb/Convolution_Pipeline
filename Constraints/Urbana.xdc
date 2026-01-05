@@ -1,6 +1,6 @@
 # URBANA BOARD CONSTRAINTS V2I1 1/3/2023 
 # clk input is from the 100 MHz oscillator on Urbana board
-create_clock -period 10.000 -name gclk [get_ports CLK_100MHZ]
+# create_clock -period 10.000 -name gclk [get_ports CLK_100MHZ]
 set_property -dict {PACKAGE_PIN N15 IOSTANDARD LVCMOS33} [get_ports {CLK_100MHZ}]
 
 # Set Bank 0 voltage
